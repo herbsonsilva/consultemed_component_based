@@ -1,6 +1,3 @@
-/**
- * 
- */
 package br.com.consultemed.repository.repositories;
 
 import java.util.ArrayList;
@@ -12,30 +9,26 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-import br.com.consultemed.models.Medico;
+import br.com.consultemed.models.Funcionario;
 import br.com.consultemed.utils.JPAUtils;
 
-/**
- * @author carlosbarbosagomesfilho
- *
- */
-public class MedicoRepository {
+public class FuncionarioRepository {
 
 	EntityManagerFactory emf = JPAUtils.getEntityManagerFactory();
 	EntityManager factory = emf.createEntityManager();
 
-	public List<Medico> listaMedicos() {
-		Query query = this.factory.createQuery("SELECT object(m) FROM Medico as m");
+	public List<Funcionario> listaFuncionarios() {
+		Query query = this.factory.createQuery("SELECT object(f) FROM Funcionario as f");
 		return query.getResultList();
 	}
 
-	public Collection<Medico> listarMedicos() throws Exception {
+	public Collection<Funcionario> listarFuncionarios() throws Exception {
 		this.factory = emf.createEntityManager();
-		List<Medico> medicos = new ArrayList<Medico>();
+		List<Funcionario> funcionarios = new ArrayList<Funcionario>();
 		try {
 			factory.getTransaction().begin();
-			TypedQuery<Medico> query = factory.createNamedQuery("Medico.findAll", Medico.class);
-			medicos = query.getResultList();
+			TypedQuery<Funcionario> query = factory.createNamedQuery("Funcionario.findAll", Funcionario.class);
+			funcionarios = query.getResultList();
 			factory.getTransaction().commit();
 
 		} catch (Exception e) {
@@ -45,17 +38,17 @@ public class MedicoRepository {
 			factory.close();
 		}
 
-		return medicos;
+		return funcionarios;
 	}
 
-	public void salvarMedico(Medico medico) {
+	public void salvarFuncionario(Funcionario funcionario) {
 		this.factory = emf.createEntityManager();
 		try {
 			factory.getTransaction().begin();
-			if (medico.getId() == null) {
-				factory.persist(medico);
+			if (funcionario.getId() == null) {
+				factory.persist(funcionario);
 			} else {
-				factory.merge(medico);
+				factory.merge(funcionario);
 			}
 			factory.getTransaction().commit();
 		} catch (Exception e) {
@@ -69,13 +62,13 @@ public class MedicoRepository {
 
 	public void deleteById(Long id) throws Exception {
 		this.factory = emf.createEntityManager();
-		Medico medico = new Medico();
+		Funcionario funcionario = new Funcionario();
 
 		try {
 
-			medico = factory.find(Medico.class, id);
+			funcionario = factory.find(Funcionario.class, id);
 			factory.getTransaction().begin();
-			factory.remove(medico);
+			factory.remove(funcionario);
 			factory.getTransaction().commit();
 
 		} catch (Exception e) {
@@ -88,3 +81,4 @@ public class MedicoRepository {
 	}
 
 }
+

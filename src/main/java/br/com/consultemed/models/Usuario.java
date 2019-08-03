@@ -18,15 +18,13 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 /**
  * @author carlosbarbosagomesfilho
  *
  */
 
 @NamedQueries({ @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
-	@NamedQuery(name = "Usuario.loginUsuario", query = "SELECT u FROM Usuario u WHERE u.login =:login AND u.senha =:senha") })
-
+@NamedQuery(name = "Usuario.loginUsuario", query = "SELECT u FROM Usuario u WHERE u.login =:login AND u.senha =:senha") })
 @NoArgsConstructor
 @EqualsAndHashCode
 @Entity
@@ -49,5 +47,10 @@ public class Usuario implements Serializable{
 	@Setter
 	@Column(name = "SENHA")
 	private String senha;
+	
+	@Getter
+	@Setter
+	@Column(name = "EMAIL")
+	private String email;
 	
 }

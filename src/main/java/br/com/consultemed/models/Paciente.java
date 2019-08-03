@@ -1,6 +1,3 @@
-/**
- * 
- */
 package br.com.consultemed.models;
 
 import java.io.Serializable;
@@ -18,17 +15,13 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-/**
- * @author carlosbarbosagomesfilho
- *
- */
 
-@NamedQueries({ @NamedQuery(name = "Medico.findAll", query = "SELECT m FROM Medico m")})
+@NamedQueries({ @NamedQuery(name = "Paciente.findAll", query = "SELECT p FROM Paciente p")})
 @NoArgsConstructor
 @EqualsAndHashCode
 @Entity
-@Table(name = "TB_MEDICOS")
-public class Medico implements Serializable{
+@Table(name = "TB_PACIENTES")
+public class Paciente implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Getter
@@ -41,12 +34,7 @@ public class Medico implements Serializable{
 	@Setter
 	@Column(name = "NOME")
 	private String nome;
-	
-	@Getter
-	@Setter
-	@Column(name = "CRM")
-	private String crm;
-	
+		
 	@Getter
 	@Setter
 	@Column(name = "EMAIL")
@@ -55,6 +43,6 @@ public class Medico implements Serializable{
 	@Getter
 	@Setter
 	@Column(name = "TELEFONE")
-	private String telefone;
-	
+	private String telefone;	
+
 }
