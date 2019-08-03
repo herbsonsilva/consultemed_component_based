@@ -1,6 +1,3 @@
-/**
- * 
- */
 package br.com.consultemed.repository.repositories;
 
 import java.util.ArrayList;
@@ -12,30 +9,26 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-import br.com.consultemed.models.Usuario;
+import br.com.consultemed.models.Consulta;
 import br.com.consultemed.utils.JPAUtils;
 
-/**
- * @author carlosbarbosagomesfilho
- *
- */
-public class UsuarioRepository {
+public class ConsultaRepository {
 
 	EntityManagerFactory emf = JPAUtils.getEntityManagerFactory();
 	EntityManager factory = emf.createEntityManager();
-	
-	public List<Usuario> listaUsuarios() {
-		Query query = this.factory.createQuery("SELECT object(u) FROM Usuario as u");
+
+	public List<Consulta> listaConsultas() {
+		Query query = this.factory.createQuery("SELECT object(c) FROM Consulta as c");
 		return query.getResultList();
 	}
 
-	public Collection<Usuario> listarUsuarios() throws Exception {
+	public Collection<Consulta> listarConsultas() throws Exception {
 		this.factory = emf.createEntityManager();
-		List<Usuario> usuarios = new ArrayList<Usuario>();
+		List<Consulta> consultas = new ArrayList<Consulta>();
 		try {
 			factory.getTransaction().begin();
-			TypedQuery<Usuario> query = factory.createNamedQuery("Usuario.findAll", Usuario.class);
-			usuarios = query.getResultList();
+			TypedQuery<Consulta> query = factory.createNamedQuery("Consulta.findAll", Consulta.class);
+			consultas = query.getResultList();
 			factory.getTransaction().commit();
 
 		} catch (Exception e) {
@@ -45,31 +38,17 @@ public class UsuarioRepository {
 			factory.close();
 		}
 
-		return usuarios;
-	}
-	
-	public boolean buscarUsuarioPorEmail(String email) {
-		try {
-		String jpql = "SELECT u FROM Usuario u WHERE u.email = :emailUsuario";
-		Query query = this.factory.createQuery(jpql); 
-		query.setParameter("emailUsuario", email);
-		
-		if(query.getSingleResult() != null) {
-			return true;
-		}else {return false;}
-		}catch(Exception e) {
-			return false;
-		}
+		return consultas;
 	}
 
-	public void salvarUsuario(Usuario usuario) {
+	public void salvarConsulta(Consulta consulta) {
 		this.factory = emf.createEntityManager();
 		try {
 			factory.getTransaction().begin();
-			if (usuario.getId() == null) {
-				factory.persist(usuario);
+			if (consulta.getId() == null) {
+				factory.persist(consulta);
 			} else {
-				factory.merge(usuario);
+				factory.merge(consulta);
 			}
 			factory.getTransaction().commit();
 		} catch (Exception e) {
@@ -83,13 +62,13 @@ public class UsuarioRepository {
 
 	public void deleteById(Long id) throws Exception {
 		this.factory = emf.createEntityManager();
-		Usuario usuario = new Usuario();
+		Consulta consulta = new Consulta();
 
 		try {
 
-			usuario = factory.find(Usuario.class, id);
+			consulta = factory.find(Consulta.class, id);
 			factory.getTransaction().begin();
-			factory.remove(usuario);
+			factory.remove(consulta);
 			factory.getTransaction().commit();
 
 		} catch (Exception e) {

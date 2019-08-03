@@ -50,7 +50,11 @@ public class UsuarioController{
 	public String excluir() throws Exception {
 		this.usuario = this.usuarioEditar;
 		this.service.deletarUsuario(this.usuario.getId());
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "PrimeFaces Rocks."));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Usuario removido."));
+		 
+		  FacesContext.getCurrentInstance()
+		      .getExternalContext()
+		      .getFlash().setKeepMessages(true);
 		return "/pages/usuarios/usuarios.xhtml?faces-redirect=true";
 	}
 	
@@ -60,7 +64,25 @@ public class UsuarioController{
 	}
 	
 	public String addUsuario() {
-		this.service.salvarUsuario(this.usuario);
+		boolean existe = this.service.getUsuarioByEmail(this.usuario.getEmail());
+		
+		if(existe) {
+			FacesContext.getCurrentInstance().addMessage(
+			        null, new FacesMessage("Usuário já existe"));
+			 
+			  FacesContext.getCurrentInstance()
+			      .getExternalContext()
+			      .getFlash().setKeepMessages(true);
+		} else {
+			this.service.salvarUsuario(this.usuario);
+			FacesContext.getCurrentInstance().addMessage(
+			        null, new FacesMessage("Usuário adicionado com sucesso."));
+			 
+			  FacesContext.getCurrentInstance()
+			      .getExternalContext()
+			      .getFlash().setKeepMessages(true);
+		}
+		  
 		return "/pages/usuarios/usuarios.xhtml?faces-redirect=true";
 	}
 	

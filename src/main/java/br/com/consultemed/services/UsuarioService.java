@@ -23,6 +23,14 @@ public class UsuarioService {
 		return this.dao.listaUsuarios();
 	}
 	
+	public boolean getUsuarioByEmail(String email) {
+		if(this.dao.buscarUsuarioPorEmail(email)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
 	public void salvarUsuario(Usuario usuario) {
 		this.dao.salvarUsuario(usuario);
 	}

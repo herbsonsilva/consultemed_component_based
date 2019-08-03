@@ -20,28 +20,22 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Entity
+@Getter
+@Setter
 @Table(name = "TB_FUNCIONARIOS")
 public class Funcionario implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	@Getter
-	@Setter
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Getter
-	@Setter
 	@Column(name = "NOME")
 	private String nome;
 		
-	@Getter
-	@Setter
 	@Column(name = "EMAIL")
 	private String email;
 	
-	@Getter
-	@Setter
 	@Column(name = "TELEFONE")
 	private String telefone;	
 
